@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa Semana Especial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .cronograma {
+            padding: 0;
+        }
+
+        .dia-item {
+            border-bottom: 1px solid #000000;
+        }
+
+        .dia-item:last-child {
+            border-bottom: none;
+        }
+
+        .dia-header {
+            background: #ffffff;
+            color: #000000;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            border: none;
+            position: relative;
+        }
+
+        .dia-header:hover {
+            background: #f5f5f5;
+        }
+
+        .dia-header:active {
+            background: #e0e0e0;
+        }
+
+        .dia-titulo {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .dia-data {
+            font-size: 0.85em;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        .accordion-icon {
+            font-size: 1em;
+            transition: transform 0.3s ease;
+            font-weight: 700;
+        }
+
+        .dia-content {
+            background: #ffffff;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .dia-content.active {
+            max-height: 500px;
+            padding: 20px;
+        }
+
+        .atividade {
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .atividade:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .atividade-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .horario {
+            font-weight: 700;
+            color: #000000;
+            min-width: 70px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .descricao {
+            flex: 1;
+            color: #000000;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .footer p {
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .footer p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .dia-content.active .atividade {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        /* Efeito de tap para mobile */
+        .dia-header {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsividade extra para mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.6em;
+            }
+            
+            .dia-header {
+                padding: 18px 15px;
+            }
+            
+            .dia-content.active {
+                padding: 15px;
+            }
+            
+            .atividade-header {
+                gap: 12px;
+            }
+            
+            .horario {
+                min-width: 65px;
+                font-size: 0.85em;
+            }
+            
+            .descricao {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Nossa Semana Especial</h1>
+            <p>13 a 18 de Agosto • 2025</p>
+        </div>
+
+        <div class="cronograma">
+            <div class="dia-item">
+                <div class="dia-header" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="dia-titulo">Dia da Chegada</div>
+                        <div class="dia-data">Quarta-feira, 13 de Agosto</div>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="dia-content">
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">Fim do dia</span>
+                            <span class="descricao">Chegada da pessoa mais especial</span>
+                        </div>
+                    </div>
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">Noite</span>
+                            <span class="descricao">Conhecer minha família e jantar em um quiosque da cidade</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dia-item">
+                <div class="dia-header" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="dia-titulo">Dia do Relaxamento</div>
+                        <div class="dia-data">Quinta-feira, 14 de Agosto</div>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="dia-content">
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">Manhã</span>
+                            <span class="descricao">Vamos treinar juntinhos na academinha</span>
+                        </div>
+                    </div>
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">Dia</span>
+                            <span class="descricao">Ficar de boa em casa, aproveitando nossa companhia</span>
+                        </div>
+                    </div>
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">19:30</span>
+                            <span class="descricao">Missa e depois participar do leilão pela noite</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dia-item">
+                <div class="dia-header" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="dia-titulo">Dia da Procissão</div>
+                        <div class="dia-data">Sexta-feira, 15 de Agosto</div>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="dia-content">
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">10:00</span>
+                            <span class="descricao">Missa especial com procissão pela cidade</span>
+                        </div>
+                    </div>
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">Tarde</span>
+                            <span class="descricao">Relaxar em casa ou dar uma volta para você conhecer melhor a cidade</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dia-item">
+                <div class="dia-header" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="dia-titulo">Esquenta da Cavalgada</div>
+                        <div class="dia-data">Sábado, 16 de Agosto</div>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="dia-content">
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">Noite</span>
+                            <span class="descricao">Festa animada - Esquenta da Cavalgada!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dia-item">
+                <div class="dia-header" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="dia-titulo">Dia da Cavalgada</div>
+                        <div class="dia-data">Domingo, 17 de Agosto</div>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="dia-content">
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">Manhã</span>
+                            <span class="descricao">Início da Cavalgada - evento tradicional da cidade</span>
+                        </div>
+                    </div>
+                    <div class="atividade">
+                        <div class="atividade-header">
+                            <span class="horario">O dia todo</span>
+                            <span class="descricao">Cavalgada se estende até a noite com muita festa e tradição</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Mal posso esperar para viver todos esses momentos com você!</p>
+            <p>Vai ser inesquecível!</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleAccordion(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('.accordion-icon');
+            const allContents = document.querySelectorAll('.dia-content');
+            const allIcons = document.querySelectorAll('.accordion-icon');
+
+            // Fechar todos os outros accordions
+            allContents.forEach((otherContent, index) => {
+                if (otherContent !== content && otherContent.classList.contains('active')) {
+                    otherContent.classList.remove('active');
+                    allIcons[index].innerHTML = '+';
+                    allIcons[index].style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Alternar o accordion atual
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.innerHTML = '+';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('active');
+                icon.innerHTML = '−';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Abrir automaticamente o primeiro dia quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstAccordion = document.querySelector('.dia-header');
+            setTimeout(() => {
+                toggleAccordion(firstAccordion);
+            }, 300);
+        });
+
+        // Adicionar feedback visual para mobile
+        document.querySelectorAll('.dia-header').forEach(header => {
+            header.addEventListener('touchstart', function() {
+                this.style.backgroundColor = '#e0e0e0';
+            });
+            
+            header.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    if (!this.nextElementSibling.classList.contains('active')) {
+                        this.style.backgroundColor = '';
+                    }
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
